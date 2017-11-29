@@ -2,62 +2,68 @@ package com.yiyo.study.sorting;
 
 import java.util.Arrays;
 
+/**
+ * Best Case: O(n * log(n))
+ * Average Case: O(n * log(n))
+ * Worst Case: O(n * log(n))
+ */
 public class MergeSort {
 
-    private int[] numbers;
-    private int[] helper;
-
     public static void main(String[] args) {
+        int[] arr = {14, 5, 2, 15, 1, 6, 9, 8, 3, 10, 5, 11, 4, 13, 12, 7};
         MergeSort mergeSort = new MergeSort();
-        int[] sortedArray = mergeSort.sort(new int[]{14, 5, 2, 15, 1, 6, 9, 8, 3, 10, 5, 11, 4, 13, 12, 7});
-        System.out.println(Arrays.toString(sortedArray));
+        mergeSort.sort(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
-    public int[] sort(int[] numbers) {
-        this.numbers = numbers;
-        helper = new int[numbers.length];
-        mergeSort(0, numbers.length - 1);
-        return numbers;
+    public void sort(int[] numbers) {
+        mergeSort(numbers, 0, numbers.length - 1);
     }
 
-    private void mergeSort(int low, int high) {
+    private void mergeSort(int[] arr, int low, int high) {
         if (low < high) {
             int mid = (low + high) / 2;
-            mergeSort(low, mid);
-            mergeSort(mid + 1, high);
-            merge(low, mid, high);
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid + 1, high);
+            merge(arr, low, mid, high);
         }
     }
 
-    private void merge(int low, int mid, int high) {
+    private void merge(int[] arr, int low, int mid, int high) {
+        int[] L = new int[mid - low + 1];
+        int[] R = new int[high - mid];
 
-        for (int i = low; i <= high; i++) {
-            helper[i] = numbers[i];
+        for (int i = 0; i < L.length; i++) {
+            L[i] = arr[low + i];
         }
 
-        int i = low;
-        int j = mid + 1;
+        for (int i = 0; i < R.length; i++) {
+            R[i] = arr[mid + 1 + i];
+        }
+
+        int i = 0;
+        int j = 0;
         int k = low;
 
-        while (i <= mid && j <= high) {
-            if (helper[i] <= helper[j]) {
-                numbers[k] = helper[i];
+        while (i < L.length && j < R.length) {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
                 i += 1;
             } else {
-                numbers[k] = helper[j];
+                arr[k] = R[j];
                 j += 1;
             }
             k += 1;
         }
 
-        while (i <= mid) {
-            numbers[k] = helper[i];
+        while (i < L.length) {
+            arr[k] = L[i];
             i += 1;
             k += 1;
         }
 
-        while (j <= high) {
-            numbers[k] = helper[j];
+        while (j < R.length) {
+            arr[k] = R[j];
             j += 1;
             k += 1;
         }
