@@ -4,63 +4,85 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Created by Yiyo on 1/18/17.
+ * Average Case: O(n * log(n))
+ * Worst Case: O(n^2)
  */
 public class QuickSort {
 
-    private int[] numbers;
-
     public static void main(String[] args) {
+        int[] arr = {7, 9, 3, 6, 1, 10, 4, 13, 15, 2, 14, 8, 11, 5, 12};
         QuickSort quickSort = new QuickSort();
-        int[] sortedArray = quickSort.sort(new int[]{7, 9, 3, 6, 1, 10, 4, 13, 15, 2, 14, 8, 11, 5, 12});
-        System.out.println(Arrays.toString(sortedArray));
+        quickSort.quickSort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
     }
 
-    public int[] sort(int[] numbers) {
-        this.numbers = numbers;
-        quicksort(0, numbers.length - 1);
-        return numbers;
+    private void quickSort(int arr[], int left, int right) {
+        if (left < right) {
+            int partitionIndex = partition(arr, left, right);
+
+            // Recursively sort elements before partition and after partition
+            quickSort(arr, left, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, right);
+        }
     }
 
-    private void quicksort(int left, int right) {
+    private int partition(int arr[], int left, int right) {
+        int pivot = arr[right];
+        int partitionIndex = left;
+        for (int i = left; i < right; i++) {
+            if (arr[i] <= pivot) {
+                swap(arr, i, partitionIndex);
+                partitionIndex++;
+            }
+        }
+
+        // swap partition index with the pivot
+        swap(arr, partitionIndex, right);
+        return partitionIndex;
+    }
+
+    private void swap(int[] arr, int left, int right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+    }
+
+    /*
+    Randomize the pivot index helps to increase the probability of obtaining O(n * log(n)) in the Worst case
+     */
+    private void quickSortRandom(int[] arr, int left, int right) {
         if (left != right) {
             int i = left;
             int j = right;
 
             Random random = new Random();
             int pivotIndex = random.nextInt(right - left) + left;
-            int pivot = numbers[pivotIndex];
+            int pivot = arr[pivotIndex];
 
             while (i < j) {
-                while (numbers[i] < pivot) {
+                while (arr[i] < pivot) {
                     i += 1;
                 }
 
-                while (numbers[j] > pivot) {
+                while (arr[j] > pivot) {
                     j -= 1;
                 }
 
                 if (i <= j) {
-                    swap(i, j);
+                    swap(arr, i, j);
                     i += 1;
                     j -= 1;
                 }
             }
 
             if (left < j) {
-                quicksort(left, j);
+                quickSortRandom(arr, left, j);
             }
 
             if (right > i) {
-                quicksort(i, right);
+                quickSortRandom(arr, i, right);
             }
         }
-    }
-
-    private void swap(int left, int right) {
-        int temp = numbers[left];
-        numbers[left] = numbers[right];
-        numbers[right] = temp;
     }
 }
 
