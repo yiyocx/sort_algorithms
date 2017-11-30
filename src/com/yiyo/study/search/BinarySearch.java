@@ -2,7 +2,6 @@ package com.yiyo.study.search;
 
 /**
  * Time Complexity: O(log(n))
- * Created by Yiyo
  */
 public class BinarySearch {
 
@@ -21,13 +20,14 @@ public class BinarySearch {
         int high = array.length;
 
         while (low <= high) {
-            int mid = (low + high) / 2;
+            // This way to get the mid index prevents an overflow in higher integers
+            int mid = low + ((high - low) / 2);
             if (array[mid] == value) {
                 return mid;
             } else if (value < array[mid]) {
-                high = mid-1;
+                high = mid - 1;
             } else {
-                low = mid+1;
+                low = mid + 1;
             }
         }
         return -1;
@@ -38,13 +38,13 @@ public class BinarySearch {
             return -1;
         }
 
-        int mid = (low + high) / 2;
+        int mid = low + ((high - low) / 2);
         if (array[mid] == value) {
             return mid;
         } else if (value < array[mid]) {
-            return search(array, low, mid-1, value);
+            return search(array, low, mid - 1, value);
         } else {
-            return search(array, mid+1, high, value);
+            return search(array, mid + 1, high, value);
         }
     }
 }
