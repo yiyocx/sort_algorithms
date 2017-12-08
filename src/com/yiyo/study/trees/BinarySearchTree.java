@@ -88,6 +88,6 @@ public class BinarySearchTree {
                 root = root.right;
             }
         }
-        return root;
+        return null;
     }
 }
