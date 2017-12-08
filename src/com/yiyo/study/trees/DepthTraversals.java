@@ -8,7 +8,7 @@ public class DepthTraversals {
 
     public static void main(String[] args) {
         BinarySearchTree searchTree = new BinarySearchTree();
-        BinarySearchTree.Node root = searchTree.insert(null, 15);
+        TreeNode root = searchTree.insert(null, 15);
         searchTree.insert(root, 10);
         searchTree.insert(root, 20);
         searchTree.insert(root, 25);
@@ -24,7 +24,7 @@ public class DepthTraversals {
         depthTraversals.postOrder(root);
     }
 
-    private void preOrder(BinarySearchTree.Node root) {
+    private void preOrder(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -34,7 +34,7 @@ public class DepthTraversals {
         preOrder(root.right);
     }
 
-    private void inOrder(BinarySearchTree.Node root) {
+    private void inOrder(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -44,7 +44,7 @@ public class DepthTraversals {
         inOrder(root.right);
     }
 
-    private void postOrder(BinarySearchTree.Node root) {
+    private void postOrder(TreeNode root) {
         if (root == null) {
             return;
         }

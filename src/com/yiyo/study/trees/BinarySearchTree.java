@@ -1,8 +1,5 @@
 package com.yiyo.study.trees;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
 /**
  * Average Case: O(log(n)) for search, insertion and delete
  * Worst Case: O(n) in unbalanced trees
@@ -11,7 +8,7 @@ public class BinarySearchTree {
 
     public static void main(String[] args) {
         BinarySearchTree searchTree = new BinarySearchTree();
-        Node root = searchTree.insert(null, 15);
+        TreeNode root = searchTree.insert(null, 15);
         searchTree.insert(root, 10);
         searchTree.insert(root, 20);
         searchTree.insert(root, 25);
@@ -20,14 +17,11 @@ public class BinarySearchTree {
 
         System.out.println(searchTree.search(root, 25));
         System.out.println(searchTree.search(root, 33));
-
-        System.out.println("Tree in Level Order:");
-        searchTree.levelOrder(root);
     }
 
-    Node insert(Node root, int value) {
+    TreeNode insert(TreeNode root, int value) {
         if (root == null) {
-            root = new Node(value);
+            root = new TreeNode(value);
         } else if (value <= root.data) {
             root.left = insert(root.left, value);
         } else {
@@ -36,7 +30,7 @@ public class BinarySearchTree {
         return root;
     }
 
-    private boolean search(Node root, int value) {
+    private boolean search(TreeNode root, int value) {
         if (root == null) {
             return false;
         } else if (root.data == value) {
@@ -48,7 +42,7 @@ public class BinarySearchTree {
         }
     }
 
-    private Node delete(Node root, int value) {
+    private TreeNode delete(TreeNode root, int value) {
         if (root == null) {
             return root;
         } else if (value < root.data) {
@@ -68,7 +62,7 @@ public class BinarySearchTree {
             }
             // Case 3: Two children
             else {
-                Node temp = findMin(root.right);
+                TreeNode temp = findMin(root.right);
                 root.data = temp.data;
                 root.right = delete(root.right, temp.data);
             }
@@ -76,42 +70,24 @@ public class BinarySearchTree {
         return root;
     }
 
-    private Node findMin(Node root) {
+    static TreeNode findMin(TreeNode root) {
         while (root.left != null) {
             root = root.left;
         }
         return root;
     }
 
-    // Time complexity: O(log(n))
-    private void levelOrder(Node root) {
-        if (root == null) {
-            return;
-        }
-        Queue<Node> queue = new ArrayDeque<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            Node element = queue.poll();
-            System.out.print(element.data + " ");
-
-            if (element.left != null) {
-                queue.add(element.left);
+    static TreeNode find(TreeNode root, int data) {
+        while (root != null) {
+            if (data == root.data) {
+                return root;
             }
-
-            if (element.right != null) {
-                queue.add(element.right);
+            if (data < root.data) {
+                root = root.left;
+            } else {
+                root = root.right;
             }
         }
-    }
-
-    public class Node {
-        Node left;
-        Node right;
-        int data;
-
-        Node(int data) {
-            this.data = data;
-        }
+        return root;
     }
 }
