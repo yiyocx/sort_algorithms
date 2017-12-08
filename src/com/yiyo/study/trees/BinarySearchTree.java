@@ -1,10 +1,11 @@
-package com.yiyo.study.search;
+package com.yiyo.study.trees;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 /**
- * Average Case: O(log(n))
+ * Average Case: O(log(n)) for search, insertion and delete
  * Worst Case: O(n) in unbalanced trees
- * <p>
- * Created by Yiyo
  */
 public class BinarySearchTree {
 
@@ -19,9 +20,12 @@ public class BinarySearchTree {
 
         System.out.println(searchTree.search(root, 25));
         System.out.println(searchTree.search(root, 33));
+
+        System.out.println("Tree in Level Order:");
+        searchTree.levelOrder(root);
     }
 
-    private Node insert(Node root, int value) {
+    Node insert(Node root, int value) {
         if (root == null) {
             root = new Node(value);
         } else if (value <= root.data) {
@@ -77,6 +81,28 @@ public class BinarySearchTree {
             root = root.left;
         }
         return root;
+    }
+
+    // Time complexity: O(log(n))
+    private void levelOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        Queue<Node> queue = new ArrayDeque<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node element = queue.poll();
+            System.out.print(element.data + " ");
+
+            if (element.left != null) {
+                queue.add(element.left);
+            }
+
+            if (element.right != null) {
+                queue.add(element.right);
+            }
+        }
     }
 
     public class Node {
