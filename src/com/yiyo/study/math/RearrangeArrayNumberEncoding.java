@@ -27,12 +27,15 @@ public class RearrangeArrayNumberEncoding {
     private void arrange(int[] A) {
         int n = A.length;
 
+        // We need to encode two numbers in one place using the formula: (A[A[i]] % n) * n.
+        // The way to get the old value is A[A[i]] % n
         for (int i = 0; i < n; i++) {
             int oldValue = A[A[i]] % n;
             int transformation = A[i] + (oldValue * n);
             A[i] = transformation;
         }
 
+        // The way to get the new value is A[i] / n
         for (int i = 0; i < n; i++) {
             int newValue = A[i] / n;
             A[i] = newValue;
