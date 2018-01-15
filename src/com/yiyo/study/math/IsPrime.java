@@ -17,7 +17,7 @@ public class IsPrime {
         System.out.println(ip.isPrime(3));
     }
 
-    private boolean isPrime(int A) {
+    public boolean isPrime(int A) {
         // Corner case
         if (A < 2) {
             return false;
