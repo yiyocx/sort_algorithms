@@ -1,9 +1,9 @@
-package com.yiyo.study.arrays;
+package com.yiyo.study.binary_search;
 
 public class RotatedArray {
 
     /*
-    Suppose a sorted array A is rotated at some pivot unknown to you beforehand. (Binary Search)
+    Suppose a sorted array A is rotated at some pivot unknown to you beforehand.
     For example: 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2
 
     Find the minimum element.
