@@ -28,13 +28,16 @@ public class RotatedSortedArraySearch {
                 return mid;
             }
 
+            // If first half is sorted
             if (A[start] < A[mid]) {
+                // We check easily if the key is inside a sorted half
                 if (key >= A[start] && key < A[mid]) {
                     end = mid - 1;
                 } else {
                     start = mid + 1;
                 }
             } else {
+                // If first half is not sorted then the second half should be sorted
                 if (key > A[mid] && key <= A[end]) {
                     start = mid + 1;
                 } else {
