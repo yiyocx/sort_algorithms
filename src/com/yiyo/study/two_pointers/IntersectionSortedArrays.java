@@ -1,4 +1,4 @@
-package com.yiyo.study.arrays;
+package com.yiyo.study.two_pointers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
