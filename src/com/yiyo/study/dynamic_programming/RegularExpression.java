@@ -46,19 +46,16 @@ public class RegularExpression {
         // Fill the table in bottom-up fashion
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
-                // Two cases if we see a '*'
-                // a) We ignore '*'' character and move
-                //    to next  character in the pattern,
-                //     i.e., '*' indicates an empty sequence.
-                // b) '*' character matches with ith
-                //     character in input
+                // Current characters are considered as matching in two cases
+                // (a) current character of pattern is '?'
+                // (b) characters actually match
                 if (pattern.charAt(j - 1) == '?' || text.charAt(i - 1) == pattern.charAt(j - 1)) {
                     result[i][j] = result[i - 1][j - 1];
                 }
-                // Current characters are considered as
-                // matching in two cases
-                // (a) current character of pattern is '?'
-                // (b) characters actually match
+                // Two cases if we see a '*'
+                // a) We ignore '*'' character and move to next  character in the pattern,
+                //     i.e., '*' indicates an empty sequence.
+                // b) '*' character matches with ith character in input
                 else if (pattern.charAt(j - 1) == '*') {
                     result[i][j] = result[i][j - 1] || result[i - 1][j];
                 }
