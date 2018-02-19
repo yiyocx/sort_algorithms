@@ -25,7 +25,7 @@ public class ReverseLinkedList {
         }
     }
 
-    private ListNode reverseList(ListNode A) {
+    public ListNode reverseList(ListNode A) {
         ListNode prev = null;
         ListNode next;
         ListNode current = A;

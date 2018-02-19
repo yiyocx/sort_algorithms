@@ -1,5 +1,8 @@
 package com.yiyo.study.linked_lists;
 
+/**
+ * Time Complexity: O(n)
+ */
 public class ReverseLinkedListII {
 
     /*
@@ -23,12 +26,57 @@ public class ReverseLinkedListII {
 
         ListNode reversedList = reverse.reverseBetween(A, 2, 4);
         while (reversedList != null) {
-            System.out.println(reversedList.val);
+            System.out.print(reversedList.val + " -> ");
             reversedList = reversedList.next;
         }
+        System.out.println("null");
     }
 
+    // Efficient way
     private ListNode reverseBetween(ListNode A, int m, int n) {
+        if (m == n) {
+            return A;
+        }
+
+        ListNode pre = null;
+        ListNode start = null;
+        ListNode end = null;
+        ListNode post = null;
+
+        int i = 1;
+        ListNode current = A;
+
+        while (current != null && i <= n) {
+            if (i < m) {
+                pre = current;
+            }
+            if (i == m) {
+                start = current;
+            }
+            if (i == n) {
+                end = current;
+                post = current.next;
+            }
+
+            current = current.next;
+            i++;
+        }
+
+        end.next = null;
+        end = new ReverseLinkedList().reverseList(start);
+
+        if (pre != null) {
+            pre.next = end;
+        } else {
+            A = end;
+        }
+        start.next = post;
+
+        return A;
+    }
+
+    // This is not efficient with larger inputs for some reason
+    private ListNode reverseBetween2(ListNode A, int m, int n) {
         ListNode B = new ListNode(0);
         B.next = A;
 
